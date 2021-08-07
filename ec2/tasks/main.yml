@@ -1,0 +1,20 @@
+---
+# tasks file for ec2
+
+- name: launching ec2 instance
+  ec2:
+          region: "{{ region }}"
+          image: "{{ img }}"
+          instance_type: "{{ ins_type }}"
+          vpc_subnet_id: "subnet-b88ae1f4"
+          assign_public_ip: yes
+          group_id: "{{ sgid }}"
+          instance_tags:
+                  name: webserver
+          count: 2
+          wait: yes
+          key_name: "key2"
+          state: present
+          aws_access_key: "{{ access_key }}"
+          aws_secret_key: "{{ secret_key }}"
+

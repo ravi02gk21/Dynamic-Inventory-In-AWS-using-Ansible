@@ -1,0 +1,34 @@
+---
+# tasks file for webhost
+
+- name: httpd install
+  package:
+          name: "httpd"
+          state: present
+  register: pack
+
+- name: dir creation
+  file:
+          state: directory
+          dest: "/var/www/web"
+  register: dir
+
+- name: webserver config
+  template:
+          dest: /etc/httpd/conf.d/new.conf
+          src: templates/local.conf.j2
+  tags: webconf
+  notify: svc start
+
+- name: copy webpage from url
+  get_url:
+          dest: "/var/www/web"
+          url: "https://raw.githubusercontent.com/Yashmb/devops_task3/master/web.html"
+  when: dir.failed == false
+
+- name: svc start
+  service:
+          name: "httpd"
+          state: started
+  register: svc
+

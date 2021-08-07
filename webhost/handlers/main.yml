@@ -1,0 +1,9 @@
+---
+# handlers file for webhost
+
+- name: svc start
+  service:
+          name: "httpd"
+          state: restarted
+  register: rsvc
+
