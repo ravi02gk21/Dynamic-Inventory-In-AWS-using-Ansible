@@ -1,0 +1,5 @@
+- hosts: localhost
+  vars_files:
+          - aws_cred.yml
+  roles:
+          - ec2
